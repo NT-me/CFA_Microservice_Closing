@@ -6,6 +6,8 @@ FLAG_CHANGE_SUCCESS = 1
 FLAG_CHANGE_FAIL = 0
 
 def initDB():
+    conn = sql.connect('DB/dataBase.db')
+    
     with open('DB/create_instruct.json') as json_file:
         cr_in = json.load(json_file)
     for i in cr_in:
