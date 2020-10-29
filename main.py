@@ -1,23 +1,21 @@
-import json
-
 from flask import Flask, request, jsonify
 from flask_restplus import Api, Resource, fields
+import json
 import requests
 from DB import wrapperDB
 
 app = Flask(__name__)
-app.config["DEBUG"] = True
 api = Api(app,
           version="1.0",
           title="Closing API",
           description="Api of MicroService Closing")
 
 name_space = api.namespace('closing', description='closing APIs')
-
 resource_fields = api.model('Resource', {
     'code_contract': fields.String,
     'user_name': fields.String,
 })
+
 
 @api.route('/closing')
 class closings(Resource):
