@@ -68,6 +68,13 @@ def updateStateClose(idContract, username):
 
 
 def allContracts():
+    """
+    Permet de rechercher dans la base de donnée tous les contrats signés ou a
+    signé avec leurs clefs fonctionnelles.
+
+    Return :
+        res -> dict : Dictionnaire de dictionnaire avec tous les contrats et leur info
+    """
     cursor = conn.cursor()
     req0 = "SELECT key, close, timestamp, user  FROM \"closingContract\""
     cursor.execute(req0)
@@ -84,6 +91,17 @@ def allContracts():
 
 
 def searchContractByKey(idContract):
+    """
+    Permet de rechercher dans la base de donnée un contrat signé ou a signé avec
+    sa clef fonctionnelle.
+
+    Params :
+        idContract -> str : Clef fonctionnelle
+
+    Return :
+        res -> dict : Permet de retourner toutes les informations nécessaires
+        -1 -> int : Erreur
+    """
     cursor = conn.cursor()
     req0 = "SELECT close, timestamp, user  FROM \"closingContract\" WHERE key LIKE \"{0}\" ".format(idContract)
     cursor.execute(req0)
@@ -102,6 +120,19 @@ def searchContractByKey(idContract):
 
 
 def createCloseConstract(idContract):
+    """
+    Cette fonction permet de vérifier si un contrat a signé OU signé est déjà présent
+    dans notre base de donnée.
+    S'il ne l'est pas l"ajoute avec des valeurs par défaut
+
+    Params :
+        idContract -> str : Clef fonctionnelle du contrat
+
+    Return :
+        True : Le contrat existe déjà
+        False : Le contrat a été ajouté avec des valeurs par défaut
+    """
+
     cursor = conn.cursor()
     req0 = "SELECT id  FROM \"closingContract\" WHERE key LIKE \"{0}\" ".format(idContract)
     cursor.execute(req0)
