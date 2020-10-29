@@ -108,8 +108,11 @@ def createCloseConstract(idContract):
     ret = cursor.fetchall()
 
     if len(ret) > 0:
+        # Si le contrat est déjà présent dans notre base de donnée
         return True
     else:
+        # Si le contrat n'existe pas encore dans notre base de donnée
+        # On le créer avec les valeurs par défaut
         ts = int(dt.datetime.now().timestamp())
         req1 = "INSERT INTO \"closingContract\" (key, timestamp, close)  VALUES (\"{0}\", {1}, 0)".format(idContract, ts)
         print(req1)
