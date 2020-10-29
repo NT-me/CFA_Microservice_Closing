@@ -1,0 +1,4 @@
+{
+  "closingContract":
+  "CREATE TABLE IF NOT EXISTS \"closingContract\" (\"id\" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, \"key\" TEXT NOT NULL UNIQUE, \"timestamp\" LONG NOT NULL, \"close\" BOOLEAN NOT NULL, \"user\" TEXT NOT NULL)"
+}
