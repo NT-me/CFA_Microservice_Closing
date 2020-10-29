@@ -6,6 +6,7 @@ from DB import wrapperDB
 from aggreg import getData
 
 app = Flask(__name__)
+app.config["DEBUG"] = True
 api = Api(app,
           version="1.0",
           title="Closing API",
@@ -38,8 +39,10 @@ class closings(Resource):
         response = wrapperDB.updateStateClose(code_contract, user_name)
         if response == -1:
             return {'error': 'wrong request'}, 400
-        result = json.dumps(response),
-        # changeContract(code_contract)
+        result = json.dumps(response)
+        if response['change_success'] == 1:
+            # changeContract(code_contract)
+            return
         return jsonify(result)
 
 
