@@ -54,7 +54,19 @@ def updateStateClose(idContract, username):
 
 
 def allContracts():
-    pass
+    cursor = conn.cursor()
+    req0 = "SELECT key, close, timestamp, user  FROM \"closingContract\""
+    cursor.execute(req0)
+    ret = cursor.fetchall()
+    res = dict()
+
+    for contract in ret:
+        res[ret[0][0]] = dict()
+        res[ret[0][0]]["status"] = ret[0][1]
+        res[ret[0][0]]["timestamp"] = ret[0][2]
+        res[ret[0][0]]["user"] = ret[0][3]
+
+    return res
 
 
 def searchContractByKey(idContract):
@@ -65,7 +77,7 @@ def searchContractByKey(idContract):
     res = dict()
 
     if len(ret) > 0:
-        res["status"] = ret[0][1]
+        res["status"] = ret[0][0]
         res["timestamp"] = ret[0][1]
         res["user"] = ret[0][2]
 
