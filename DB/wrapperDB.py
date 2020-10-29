@@ -128,9 +128,9 @@ def searchContractByKey(idContract):
 
 def createCloseConstract(idContract):
     """
-    Cette fonction permet de vérifier si un contrat a signé OU signé est déjà présent
-    dans notre base de donnée.
-    S'il ne l'est pas l"ajoute avec des valeurs par défaut
+    Cette fonction permet de vérifier si un contrat à signer OU signé est déjà présent
+    dans notre base de données.
+    S'il ne l'est pas l'ajoute avec des valeurs par défaut
 
     Params :
         idContract -> str : Clef fonctionnelle du contrat
@@ -140,6 +140,7 @@ def createCloseConstract(idContract):
         False : Le contrat a été ajouté avec des valeurs par défaut
     """
 
+    conn = sql.connect('DB/dataBase.db')
     cursor = conn.cursor()
     req0 = "SELECT id  FROM \"closingContract\" WHERE key LIKE \"{0}\" ".format(idContract)
     cursor.execute(req0)
