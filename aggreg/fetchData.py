@@ -39,7 +39,7 @@ def fetchDealById(id):
     res_dict = json.loads(res_json)
     return res_dict
 
-""" retourne tous les Deals sous forme de dict()
+""" retourne tous les Deals sous forme de liste de dict()
     
     code
     nom
@@ -67,7 +67,8 @@ def fetchInsuranceById(id):
     res_dict = json.loads(res_json)
     return res_dict
 
-""" retourne toutes les Assurances sous forme de dict()
+
+""" retourne toutes les Assurances sous forme de liste de dict()
 
     code
     nom
@@ -98,7 +99,7 @@ def fetchFacilityById(id):
     res_dict = json.loads(res_json)
     return res_dict
 
-""" retourne la Facilité sous forme de dict()
+""" retourne toutes les Facilités sous forme de liste de dict()
 
     deal_code
     nom
