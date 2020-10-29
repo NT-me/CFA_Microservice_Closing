@@ -1,5 +1,6 @@
 import sqlite3 as sql
 import json
+import datetime as dt
 
 conn = sql.connect('DB/dataBase.db')
 
@@ -36,9 +37,22 @@ def updateStateClose(idContract, username):
         res["user"] = ret[0][2]
         if(ret[0][0] == 0):
             # Cas où le contrat n'est PAS fermé
+
+            # Signe un contrat
             req1 = "UPDATE \"closingContract\" SET close = 1 WHERE key LIKE \"{0}\"".format(idContract)
             cursor.execute(req1)
             conn.commit()
+
+            # Met a jour le timestamp
+            req2 = "UPDATE \"closingContract\" SET timestamp = {1} WHERE key LIKE \"{0}\"".format(idContract, int(dt.datetime.now().timestamp()))
+            cursor.execute(req2)
+            conn.commit()
+
+            # Met a jour le signataire
+            req3 = "UPDATE \"closingContract\" SET user = \"{1}\" WHERE key LIKE \"{0}\"".format(idContract, username)
+            cursor.execute(req3)
+            conn.commit()
+
             res["change_success"] = FLAG_CHANGE_SUCCESS
             return res
         elif (ret[0][0] == 1):
@@ -85,3 +99,20 @@ def searchContractByKey(idContract):
         return -1
 
     return res
+
+
+def createCloseConstract(idContract):
+    cursor = conn.cursor()
+    req0 = "SELECT id  FROM \"closingContract\" WHERE key LIKE \"{0}\" ".format(idContract)
+    cursor.execute(req0)
+    ret = cursor.fetchall()
+
+    if len(ret) > 0:
+        return True
+    else:
+        ts = int(dt.datetime.now().timestamp())
+        req1 = "INSERT INTO \"closingContract\" (key, timestamp, close)  VALUES (\"{0}\", {1}, 0)".format(idContract, ts)
+        print(req1)
+        cursor.execute(req1)
+        conn.commit()
+        return False
