@@ -3,6 +3,7 @@ from flask_restplus import Api, Resource, fields
 import json
 import requests
 from DB import wrapperDB
+from aggreg import getData
 
 app = Flask(__name__)
 api = Api(app,
@@ -22,7 +23,7 @@ class closings(Resource):
     @api.response(200, 'Success')
     def get(self):
         """Returns list of closing."""
-        # result = getAllContracts()
+        # result = getData.getAllContracts()
         result = {'data': 'closing get'}
         return jsonify(result)
 
@@ -48,8 +49,8 @@ class closingid(Resource):
     @api.response(200, 'Success')
     def get(self, code):
         """Returns a closing."""
-        # result = getContractByCode(code)
-        result = {'data': 'code ' + code}
+        # result = getData.getContractById(code)
+        result = {'data': 'id' + code}
         return jsonify(result)
 
 
