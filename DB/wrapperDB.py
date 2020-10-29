@@ -29,11 +29,11 @@ def updateStateClose(idContract, username):
     ret = cursor.fetchall()
 
     res = dict()
-    res["timestamp"] = ret[0][1]
-    res["user"] = ret[0][2]
 
     if len(ret) > 0:
         # Cas où il trouve
+        res["timestamp"] = ret[0][1]
+        res["user"] = ret[0][2]
         if(ret[0][0] == 0):
             # Cas où le contrat n'est PAS fermé
             req1 = "UPDATE \"closingContract\" SET close = 1 WHERE key LIKE \"{0}\"".format(idContract)
@@ -52,13 +52,24 @@ def updateStateClose(idContract, username):
         # Cas où il ne trouve pas
         return -1
 
-    print(ret)
-
-
 
 def allContracts():
     pass
 
 
-def searchContractByKey(key):
-    pass
+def searchContractByKey(idContract):
+    cursor = conn.cursor()
+    req0 = "SELECT close, timestamp, user  FROM \"closingContract\" WHERE key LIKE \"{0}\" ".format(idContract)
+    cursor.execute(req0)
+    ret = cursor.fetchall()
+    res = dict()
+
+    if len(ret) > 0:
+        res["status"] = ret[0][1]
+        res["timestamp"] = ret[0][1]
+        res["user"] = ret[0][2]
+
+    else:
+        return -1
+
+    return res
