@@ -24,10 +24,10 @@ def getContractById( id ):
     dict_closer = wdb.searchContractByKey( id )     # dico closer
 
     # aggreg
-    contract_json = ag.aggregation( dict_deal, dict_facility, dict_insurance, dict_closer )
+    dict_contract = ag.aggregation( dict_deal, dict_facility, dict_insurance, dict_closer )
 
     # dict -> json
-    contract_json = json.dumps(contract_json)
+    contract_json = json.dumps(dict_contract)
     return contract_json
 
 
