@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from flask_restplus import Api, Resource, fields
 import json
 import requests
@@ -11,7 +11,6 @@ api = Api(app,
           version="1.0",
           title="Closing API",
           description="Api of MicroService Closing")
-
 name_space = api.namespace('closing', description='closing APIs')
 resource_fields = api.model('Resource', {
     'code_contract': fields.String,
@@ -25,8 +24,8 @@ class closings(Resource):
     def get(self):
         """Returns list of closing."""
         # result = getData.getAllContracts()
-        result = {'data': 'closing get'}
-        return jsonify(result)
+        result = json.dumps({'data': 'closing get'})
+        return Response(result, status=200, mimetype='application/json')
 
     @api.response(200, 'Success')
     @api.response(400, 'Validation Error')
@@ -50,11 +49,18 @@ class closings(Resource):
 @api.doc(params={'code': 'contract code'})
 class closingid(Resource):
     @api.response(200, 'Success')
+    @api.response(206, 'partial_content')
+    @api.response(400, 'Contract does not exist')
     def get(self, code):
         """Returns a closing."""
         # result = getData.getContractById(code)
-        result = {'data': 'id' + code}
-        return jsonify(result)
+        result = {"status_facility": 1, "status_insurance": 1, "status_closer": 1, "contract_json": {'data': 'id' + code}}
+        statusCode = 200
+        if result == -1:
+            return {'error': "contract don't exist"}, 400
+        if result['status_facility'] == -1 or result['status_insurance'] == -1 or result['status_closer'] == -1:
+            statusCode = 206
+        return Response(json.dumps(result['contract_json']), status=statusCode, mimetype='application/json')
 
 
 def changeContract(code):
