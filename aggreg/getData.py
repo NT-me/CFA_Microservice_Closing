@@ -1,8 +1,8 @@
 # Author : David Herzog
 
 import json
-#from . import fetchDataTest as fd
-from . import fetchData as fd
+from . import fetchDataTest as fd
+#from . import fetchData as fd
 from . import aggreg as ag
 from DB import wrapperDB as wdb
 
@@ -34,7 +34,7 @@ def getContractById( id ):
         return -1
 
     wdb.createCloseConstract( id )    # remplissage de la BD closer (si le deal existe)
-    
+
     dict_facility = fd.fetchFacilityById( id )      # dico faciliy
     dict_insurance = fd.fetchInsuranceById( id )    # dico insurance
     dict_closer = wdb.searchContractByKey( id )     # dico closer
