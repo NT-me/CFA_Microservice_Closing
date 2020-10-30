@@ -82,10 +82,10 @@ def allContracts():
     res = dict()
 
     for contract in ret:
-        res[ret[0][0]] = dict()
-        res[ret[0][0]]["status"] = ret[0][1]
-        res[ret[0][0]]["timestamp"] = ret[0][2]
-        res[ret[0][0]]["user"] = ret[0][3]
+        res[contract[0]] = dict()
+        res[contract[0]]["status"] = contract[1]
+        res[contract[0]]["timestamp"] = contract[2]
+        res[contract[0]]["user"] = contract[3]
 
     return res
 
