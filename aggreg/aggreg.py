@@ -9,7 +9,6 @@ import json
 """
 
 
-
 def aggregation( dict_deal, dict_facility, dict_insurance, dict_closer ):
     """ retourne un dict() du contract, aggrégé
         @param      dict_deal:          dico du deal
@@ -23,4 +22,3 @@ def aggregation( dict_deal, dict_facility, dict_insurance, dict_closer ):
     dict_contract['insurance'] = dict_insurance
     dict_contract['closer'] = dict_closer
     return dict_contract
-
