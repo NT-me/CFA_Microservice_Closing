@@ -7,4 +7,5 @@ wrapperDB.initDB()
 app = Flask(__name__)
 app.config["DEBUG"] = True
 closing.api.init_app(app)
-app.run(host='127.0.0.1', port='8093')
+port = int(os.environ.get("PORT", 5000))
+app.run(host='0.0.0.0', port=port)
