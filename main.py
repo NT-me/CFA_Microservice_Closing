@@ -1,6 +1,7 @@
 from flask import Flask
 from DB import wrapperDB
 from apis import closing
+import os
 
 wrapperDB.initDB()
 
