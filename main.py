@@ -4,6 +4,7 @@ import json
 import requests
 from DB import wrapperDB
 from aggreg import getData
+import os
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -70,4 +71,5 @@ def changeContract(code):
 
 if __name__ == '__main__':
     wrapperDB.initDB()
-    app.run(port='8093')
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
