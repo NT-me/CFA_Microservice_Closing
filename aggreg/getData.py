@@ -1,6 +1,7 @@
 # Author : David Herzog
 
 import json
+#from . import fetchDataTest as fd
 from . import fetchData as fd
 from . import aggreg as ag
 from DB import wrapperDB as wdb
@@ -32,11 +33,11 @@ def getContractById( id ):
     if dict_deal == -1:
         return -1
 
+    wdb.createCloseConstract( id )    # remplissage de la BD closer (si le deal existe)
+    
     dict_facility = fd.fetchFacilityById( id )      # dico faciliy
     dict_insurance = fd.fetchInsuranceById( id )    # dico insurance
     dict_closer = wdb.searchContractByKey( id )     # dico closer
-
-    wdb.createCloseConstract( id )    # remplissage de la BD closer (si le deal existe)
 
     # aggreg
     dict_contract = ag.aggregation( dict_deal, dict_facility, dict_insurance, dict_closer )
